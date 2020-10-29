@@ -71,11 +71,11 @@ glob.sync(`${INPUTS_FOLDER}*.txt`).forEach(path => {
             });
 
             // Based on the jaccard index and our cutoff, compute if the FR and NFR are related
-            let r1 = results[0] > SIMILARITY_CUTOFF ? 1 : 0;
-            let r2 = results[1] > SIMILARITY_CUTOFF ? 1 : 0;
-            let r3 = results[2] > SIMILARITY_CUTOFF ? 1 : 0;
-            
-            outString += `${frData.id},${r1},${r2},${r3}\n`
+
+            let nfrResults = results.map(result=>{
+                return result > SIMILARITY_CUTOFF ? 1 : 0;
+            })
+            outString += `${frData.id},${nfrResults.join(',')}\n`
         });
 
         // Get the filename
